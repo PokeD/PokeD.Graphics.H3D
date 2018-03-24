@@ -1,3 +1,6 @@
 [submodule "SPICA"]
 	path = SPICA
 	url = https://github.com/gdkchan/SPICA.git
+[submodule "PokeD.Graphics.Animation"]
+	path = PokeD.Graphics.Animation
+	url = https://github.com/PokeD/PokeD.Graphics.Animation.git

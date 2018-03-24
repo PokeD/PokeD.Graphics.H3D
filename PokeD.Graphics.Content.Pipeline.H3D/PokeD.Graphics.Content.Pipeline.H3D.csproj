@@ -13,7 +13,7 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-	<SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -65,10 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework.Content.Pipeline, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Framework.Content.Pipeline.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.Content.Pipeline.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\MonoGame.Framework.Content.Pipeline.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.Content.Pipeline.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
@@ -82,11 +82,11 @@
     <Content Include="Resources\Macros.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PokeD.Graphics.Animation\PokeD.Graphics.Content.Pipeline.Animation\PokeD.Graphics.Content.Pipeline.Animation.csproj">
+    <ProjectReference Include="$(SolutionDir)\PokeD.Graphics.Animation\PokeD.Graphics.Content.Pipeline.Animation\PokeD.Graphics.Content.Pipeline.Animation.csproj">
       <Project>{04c74d24-3585-4f0e-a1ab-093a2e621131}</Project>
       <Name>PokeD.Graphics.Content.Pipeline.Animation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SPICA\SPICA\SPICA.csproj">
+    <ProjectReference Include="$(SolutionDir)\SPICA\SPICA\SPICA.csproj">
       <Project>{8149ac62-dd21-4b20-9691-f7ae5f47340f}</Project>
       <Name>SPICA</Name>
     </ProjectReference>
