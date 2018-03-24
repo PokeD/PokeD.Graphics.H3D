@@ -1,0 +1,3 @@
+[submodule "SPICA"]
+	path = SPICA
+	url = https://github.com/gdkchan/SPICA.git

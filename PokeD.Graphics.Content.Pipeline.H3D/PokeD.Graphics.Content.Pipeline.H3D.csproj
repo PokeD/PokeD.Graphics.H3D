@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{40FBAAAE-43B0-4AF9-8606-3ABD6E41FE65}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PokeD.Graphics.Content.Pipeline</RootNamespace>
+    <AssemblyName>PokeD.Graphics.Content.Pipeline.H3D</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+	<SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="H3D\H3DAnimatedDynamicVertexBufferContent.cs" />
+    <Compile Include="H3DModelImporter.cs" />
+    <Compile Include="H3D\H3DFaceCulling.cs" />
+    <Compile Include="H3D\H3DMaterialContent.cs" />
+    <Compile Include="H3D\H3DMaterialProcessorDefaultEffect.cs" />
+    <Compile Include="H3D\ShaderGenerator.cs" />
+    <Compile Include="Extensions\NumericsExtension.cs" />
+    <Compile Include="H3D\SPICA\FormatIdentifier.cs" />
+    <Compile Include="H3D\SPICA\GFBtlSklAnim.cs" />
+    <Compile Include="H3D\SPICA\GFCharaModel.cs" />
+    <Compile Include="H3D\SPICA\GFL2OverWorld.cs" />
+    <Compile Include="H3D\SPICA\GFOWCharaModel.cs" />
+    <Compile Include="H3D\SPICA\GFOWMapModel.cs" />
+    <Compile Include="H3D\SPICA\GFPackage.cs" />
+    <Compile Include="H3D\SPICA\GFPackedTexture.cs" />
+    <Compile Include="H3D\SPICA\GFPkmnModel.cs" />
+    <Compile Include="H3D\SPICA\GFPkmnSklAnim.cs" />
+    <Compile Include="H3D\TextureSamplerSettings.cs" />
+    <Compile Include="Processors\CPUAnimatedH3DModelProcessor.cs" />
+    <Compile Include="Processors\GPUAnimatedH3DModelProcessor.cs" />
+    <Compile Include="Processors\H3DMaterialProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Serialization\H3DAnimatedDynamicVertexBufferWriter.cs" />
+    <Compile Include="Serialization\H3DEffectWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework.Content.Pipeline, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Framework.Content.Pipeline.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.Content.Pipeline.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\VertexShaderBase.txt" />
+    <Content Include="Resources\PixelShader.txt" />
+    <Content Include="Resources\Macros.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PokeD.Graphics.Animation\PokeD.Graphics.Content.Pipeline.Animation\PokeD.Graphics.Content.Pipeline.Animation.csproj">
+      <Project>{04c74d24-3585-4f0e-a1ab-093a2e621131}</Project>
+      <Name>PokeD.Graphics.Content.Pipeline.Animation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SPICA\SPICA\SPICA.csproj">
+      <Project>{8149ac62-dd21-4b20-9691-f7ae5f47340f}</Project>
+      <Name>SPICA</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

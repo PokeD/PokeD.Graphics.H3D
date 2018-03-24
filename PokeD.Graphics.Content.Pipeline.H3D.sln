@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2011
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeD.Graphics.Content.Pipeline.H3D", "PokeD.Graphics.Content.Pipeline.H3D\PokeD.Graphics.Content.Pipeline.H3D.csproj", "{40FBAAAE-43B0-4AF9-8606-3ABD6E41FE65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPICA", "SPICA\SPICA\SPICA.csproj", "{8149AC62-DD21-4B20-9691-F7AE5F47340F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeD.Graphics.H3D", "PokeD.Graphics.H3D\PokeD.Graphics.H3D.csproj", "{A3A78C59-A4A0-431D-A285-640FA66987DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40FBAAAE-43B0-4AF9-8606-3ABD6E41FE65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FBAAAE-43B0-4AF9-8606-3ABD6E41FE65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FBAAAE-43B0-4AF9-8606-3ABD6E41FE65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FBAAAE-43B0-4AF9-8606-3ABD6E41FE65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8149AC62-DD21-4B20-9691-F7AE5F47340F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8149AC62-DD21-4B20-9691-F7AE5F47340F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8149AC62-DD21-4B20-9691-F7AE5F47340F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8149AC62-DD21-4B20-9691-F7AE5F47340F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3A78C59-A4A0-431D-A285-640FA66987DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3A78C59-A4A0-431D-A285-640FA66987DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3A78C59-A4A0-431D-A285-640FA66987DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3A78C59-A4A0-431D-A285-640FA66987DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC7CAAC3-2222-468B-8785-C90DA77DF1E8}
+	EndGlobalSection
+EndGlobal
