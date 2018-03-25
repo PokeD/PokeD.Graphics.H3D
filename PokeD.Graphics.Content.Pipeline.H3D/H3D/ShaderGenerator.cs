@@ -40,7 +40,7 @@ namespace PokeD.Graphics.Content.Pipeline.H3D
             _sb.AppendLine($"#define MAX_BONES {BoneCount}");
             _sb.AppendLine(Resources.VertexShaderBase);
 
-            _hasTexColor = new bool[] { false, false, false };
+            _hasTexColor = new [] { false, false, false };
 
             var index = 0;
 

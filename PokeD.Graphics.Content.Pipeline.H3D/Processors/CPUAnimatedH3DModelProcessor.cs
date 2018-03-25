@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Text;
 
 using Microsoft.Xna.Framework.Content.Pipeline;
@@ -14,7 +15,7 @@ using tainicom.Aether.Content.Pipeline.Processors;
 namespace PokeD.Graphics.Content.Pipeline.Processors
 {
     [ContentProcessor(DisplayName = "CPU Animated H3D Model - PokeD.Graphics")]
-    public class CPUAnimatedH3DModelProcessor : CPUAnimatedModelProcessor
+    public class CPUAnimatedH3DModelProcessor : CPUAnimatedModelProcessor, IContentProcessor
     {
         [DisplayName("MaxBones"), DefaultValue(250)]
         public override int MaxBones { get; set; } = 250;
@@ -22,12 +23,26 @@ namespace PokeD.Graphics.Content.Pipeline.Processors
         [Browsable(false)] // -- Force H3DEffect shader
         public sealed override MaterialProcessorDefaultEffect DefaultEffect { get => base.DefaultEffect; set => base.DefaultEffect = value; }
 
+        object IContentProcessor.Process(object input, ContentProcessorContext context)
+        {
+            context.Logger.LogMessage("Processing CPU Animated H3D Model");
+            try
+            {
+                // Because why not
+                var methodInfo = GetType().BaseType.GetMethod("Microsoft.Xna.Framework.Content.Pipeline.IContentProcessor.Process", BindingFlags.NonPublic | BindingFlags.Instance);
+                return methodInfo.Invoke(this, new [] { input, context });
+            }
+            catch (Exception ex)
+            {
+                context.Logger.LogMessage("Error {0}", ex);
+                throw;
+            }
+        }
+
         protected override MaterialContent ConvertMaterial(MaterialContent material, ContentProcessorContext context)
         {
             try
             {
-                context.Logger.LogMessage("Processing CPU Animated H3D Model");
-
                 // -- We don't use Matrix[] in CPU rendering
                 if (material is H3DMaterialContent h3dMaterial)
                 {

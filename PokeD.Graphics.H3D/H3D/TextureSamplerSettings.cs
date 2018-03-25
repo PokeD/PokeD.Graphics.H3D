@@ -4,20 +4,8 @@ namespace PokeD.Graphics.H3D
 {
     public class TextureSamplerSettings
     {
-        public enum TextureMagFilter
-        {
-            Point,
-            Linear
-        }
-        public enum TextureMinFilter
-        {
-            Point,
-            PointMipmapPoint,
-            PointMipmapLinear,
-            Linear,
-            LinearMipmapPoint,
-            LinearMipmapLinear
-        }
+        public enum TextureMagFilter { Point, Linear }
+        public enum TextureMinFilter { Point, PointMipmapPoint, PointMipmapLinear, Linear, LinearMipmapPoint, LinearMipmapLinear }
 
         public TextureAddressMode WrapU { get; }
         public TextureAddressMode WrapV { get; }

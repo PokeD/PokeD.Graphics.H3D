@@ -22,18 +22,25 @@ namespace PokeD.Graphics.Content.Pipeline.Processors
 
         public override ModelContent Process(NodeContent input, ContentProcessorContext context)
         {
-            if (context.TargetPlatform == TargetPlatform.Windows) // DirectX requires to have all vertices
-                FixDirectXGeometry(input);
+            context.Logger.LogMessage("Processing GPU Animated H3D Model");
+            try
+            {
+                if (context.TargetPlatform == TargetPlatform.Windows) // DirectX requires to have all vertices
+                    FixDirectXGeometry(input);
 
-            return base.Process(input, context);
+                return base.Process(input, context);
+            }
+            catch (Exception ex)
+            {
+                context.Logger.LogMessage("Error {0}", ex);
+                throw;
+            }
         }
 
         protected override MaterialContent ConvertMaterial(MaterialContent material, ContentProcessorContext context)
         {
             try
             {
-                context.Logger.LogMessage("Processing H3D Model Material");
-
                 var parameters = new OpaqueDataDictionary
                 {
                     {"ColorKeyColor", ColorKeyColor},
