@@ -244,7 +244,7 @@ namespace PokeD.Graphics.Content.Pipeline.H3D
                     _sb.AppendLine($"\toutput.rgb = min(({colorArgs[0]}).rgb + ({colorArgs[1]}).rgb, 1);");
                     break;
                 case PICATextureCombinerMode.AddSigned:
-                    _sb.AppendLine($"\toutput.rgb = clamp(({colorArgs[0]}).rgb + ({colorArgs[1]}).rgb - 0.5, 0, 1);");
+                    _sb.AppendLine($"\toutput.rgb = saturate(({colorArgs[0]}).rgb + ({colorArgs[1]}).rgb - 0.5);");
                     break;
                 case PICATextureCombinerMode.Interpolate:
                     _sb.AppendLine($"\toutput.rgb = lerp(({colorArgs[1]}).rgb, ({colorArgs[0]}).rgb, ({colorArgs[2]}).rgb);");
@@ -281,7 +281,7 @@ namespace PokeD.Graphics.Content.Pipeline.H3D
                     _sb.AppendLine($"\toutput.a = min(({alphaArgs[0]}) + ({alphaArgs[1]}), 1);");
                     break;
                 case PICATextureCombinerMode.AddSigned:
-                    _sb.AppendLine($"\toutput.a = clamp(({alphaArgs[0]}) + ({alphaArgs[1]}) - 0.5, 0, 1);");
+                    _sb.AppendLine($"\toutput.a = saturate(({alphaArgs[0]}) + ({alphaArgs[1]}) - 0.5);");
                     break;
                 case PICATextureCombinerMode.Interpolate:
                     _sb.AppendLine($"\toutput.a = lerp(({alphaArgs[1]}), ({alphaArgs[0]}), ({alphaArgs[2]}));");

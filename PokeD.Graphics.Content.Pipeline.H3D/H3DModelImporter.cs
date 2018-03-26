@@ -42,17 +42,24 @@ namespace PokeD.Graphics.Content.Pipeline
             context.Logger.LogMessage("Importing H3D file: {0}", filename);
 
             _identity = new ContentIdentity(filename, GetType().Name);
-
-            var scene = FormatIdentifier.IdentifyAndOpen(filename);
-
-            var model = scene.Models[0];
-
             _rootNode = new NodeContent() { Identity = _identity, Name = "RootNode" };
 
-            // Textures
+            var scene = FormatIdentifier.IdentifyAndOpen(filename);
+            var model = scene.Models[0];
+            
             if (!scene.Textures.Any())
-                scene.Merge(FormatIdentifier.IdentifyAndOpen(Path.Combine(Path.GetDirectoryName(filename), $"{Path.GetFileNameWithoutExtension(filename)}@Textures{Path.GetExtension(filename)}"), model.Skeleton));
+            {
+                var path = Path.Combine(Path.GetDirectoryName(filename), $"{Path.GetFileNameWithoutExtension(filename)}@Textures{Path.GetExtension(filename)}");
+                if (File.Exists(path))
+                {
+                    context.Logger.LogMessage($"Found texture file {path}. Loading data...");
+                    scene.Merge(FormatIdentifier.IdentifyAndOpen(path, model.Skeleton));
+                }
+                else
+                    context.Logger.LogMessage($"Couldn't find texture file {path}!");
+            }
 
+            // Textures
             var textures = new Dictionary<string, Texture2DContent>();
             foreach (var texture in scene.Textures)
             {
@@ -139,8 +146,6 @@ namespace PokeD.Graphics.Content.Pipeline
                 materials.Add(material.Name, materialContent);
             }
 
-            var irScales = new Dictionary<string, Vector4[]>();
-
             // Geometry
             var meshes = new List<MeshContent>();
             for (var i = 0; i < model.Meshes.Count; i++)
@@ -155,13 +160,11 @@ namespace PokeD.Graphics.Content.Pipeline
                     Identity = _identity,
                     Name = $"{model.Materials[modelMesh.MaterialIndex].Name}_node{i}",
                 };
-
                 var geometry = new GeometryContent
                 {
                     Identity = _identity,
                     Material = materials[model.Materials[modelMesh.MaterialIndex].Name]
                 };
-
                 var vertices = GetWorldSpaceVertices(model.Skeleton, modelMesh);
                 var baseVertex = mesh.Positions.Count;
                 foreach (var vertex in vertices)
@@ -197,14 +200,18 @@ namespace PokeD.Graphics.Content.Pipeline
                     }
                 }
 
+                var vertexOffset = 0;
+                var xnaWeights = new List<BoneWeightCollection>();
                 foreach (var modelSubMesh in modelMesh.SubMeshes)
                 {
                     geometry.Indices.AddRange(modelSubMesh.Indices.Select(index => (int) index));
 
-                    var xnaWeights = new List<BoneWeightCollection>();
+                    var vertexCount = modelSubMesh.MaxIndex + 1 - vertexOffset;
+                    var subMeshVertices = vertices.Skip(vertexOffset).Take(vertexCount).ToList();
+                    
                     if (modelSubMesh.Skinning == H3DSubMeshSkinning.Smooth)
                     {
-                        foreach (var vertex in vertices)
+                        foreach (var vertex in subMeshVertices)
                         {
                             var list = new BoneWeightCollection();
                             for (var index = 0; index < 4; index++)
@@ -238,9 +245,9 @@ namespace PokeD.Graphics.Content.Pipeline
                             xnaWeights.Add(new BoneWeightCollection() { new BoneWeight(model.Skeleton[bIndex].Name, 0) });
                         }
                     }
-                    geometry.Vertices.Channels.Add(VertexChannelNames.Weights(0), xnaWeights);
+                    vertexOffset += vertexCount;
                 }
-
+                geometry.Vertices.Channels.Add(VertexChannelNames.Weights(0), xnaWeights);
                 mesh.Geometry.Add(geometry);
                 meshes.Add(mesh);
             }
@@ -251,8 +258,17 @@ namespace PokeD.Graphics.Content.Pipeline
             var rootBone = ImportBones(model);
             _rootNode.Children.Add(rootBone);
 
-            if(!scene.SkeletalAnimations.Any())
-                scene.Merge(FormatIdentifier.IdentifyAndOpen(Path.Combine(Path.GetDirectoryName(filename), $"{Path.GetFileNameWithoutExtension(filename)}@Animations{Path.GetExtension(filename)}"), model.Skeleton));
+            if (!scene.SkeletalAnimations.Any())
+            {
+                var path = Path.Combine(Path.GetDirectoryName(filename), $"{Path.GetFileNameWithoutExtension(filename)}@Animations{Path.GetExtension(filename)}");
+                if(File.Exists(path))
+                {
+                    context.Logger.LogMessage($"Found animation file {path}. Loading data...");
+                    scene.Merge(FormatIdentifier.IdentifyAndOpen(path, model.Skeleton));
+                }
+                else
+                    context.Logger.LogMessage($"Couldn't find animation file {path}!");
+            }
 
             foreach (var animation in ImportSkeletalAnimations(scene))
                 rootBone.Animations.Add(animation.Name, animation);
