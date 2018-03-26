@@ -33,12 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="H3D\GLSLFragmentShaderGenerator.cs" />
     <Compile Include="H3D\H3DAnimatedDynamicVertexBufferContent.cs" />
     <Compile Include="H3DModelImporter.cs" />
     <Compile Include="H3D\H3DFaceCulling.cs" />
     <Compile Include="H3D\H3DMaterialContent.cs" />
     <Compile Include="H3D\H3DMaterialProcessorDefaultEffect.cs" />
-    <Compile Include="H3D\ShaderGenerator.cs" />
+    <Compile Include="H3D\HLSLShaderGenerator.cs" />
     <Compile Include="Extensions\NumericsExtension.cs" />
     <Compile Include="H3D\SPICA\FormatIdentifier.cs" />
     <Compile Include="H3D\SPICA\GFBtlSklAnim.cs" />
@@ -77,7 +78,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\VertexShaderBase.txt" />
+    <Content Include="Resources\Declaration.txt" />
+    <Content Include="Resources\FragmentShaderBase.txt" />
+    <Content Include="Resources\Techniques.txt" />
+    <Content Include="Resources\VertexShader.txt" />
     <Content Include="Resources\PixelShader.txt" />
     <Content Include="Resources\Macros.txt" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿float4 PSBasic(PSInput input) : SV_TARGET0
+﻿float4 PSBasic(PSInput input) : SV_Target0
 {
 	float4 output;
 
@@ -14,17 +14,3 @@
 	AlphaTest(output);
 	return output;
 }
-
-
-TECHNIQUE( H3DEffect_Basic,							VSBasic,				PSBasic	);
-TECHNIQUE( H3DEffect_Custom,						VSBasic,				PSCustom );
-
-#if (SET_CPU_RENDER == 0)
-	TECHNIQUE( H3DEffect_Basic_SkinnedOneBone,		VSSkinnedOneBone,		PSBasic	);
-	TECHNIQUE( H3DEffect_Basic_SkinnedTwoBones,		VSSkinnedTwoBones,		PSBasic	);
-	TECHNIQUE( H3DEffect_Basic_SkinnedFourBones,	VSSkinnedFourBones,		PSBasic	);
-
-	TECHNIQUE( H3DEffect_Custom_SkinnedOneBone,		VSSkinnedOneBone,		PSCustom );
-	TECHNIQUE( H3DEffect_Custom_SkinnedTwoBones,	VSSkinnedTwoBones,		PSCustom );
-	TECHNIQUE( H3DEffect_Custom_SkinnedFourBones,	VSSkinnedFourBones,		PSCustom );
-#endif

@@ -22,6 +22,9 @@ namespace PokeD.Graphics.Content.Pipeline.Processors
 
         public override ModelContent Process(NodeContent input, ContentProcessorContext context)
         {
+            //if (context.TargetPlatform == TargetPlatform.DesktopGL)
+            //    throw new PlatformNotSupportedException("GPU Animation not supported on DesktopGL!");
+
             context.Logger.LogMessage("Processing GPU Animated H3D Model");
             try
             {

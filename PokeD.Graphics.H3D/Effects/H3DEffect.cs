@@ -109,7 +109,6 @@ namespace PokeD.Graphics.Effects
 
         private Matrix _worldView;
 
-        public Texture3D Textures { get => _texture0Parameter?.GetValueTexture3D(); set => _texture0Parameter?.SetValue(value); }
         public Matrix[] TextureTransforms { set => _textureTransformsParameter?.SetValue((value)); }
 
         public Texture2D Texture0 { get => _texture0Parameter?.GetValueTexture2D(); set => _texture0Parameter?.SetValue(value); }
@@ -144,6 +143,8 @@ namespace PokeD.Graphics.Effects
         public Vector4? Constant3Color { get => _constant3ColorParameter?.GetValueVector4(); set => _constant3ColorParameter?.SetValue(value.GetValueOrDefault()); }
         public Vector4? Constant4Color { get => _constant4ColorParameter?.GetValueVector4(); set => _constant4ColorParameter?.SetValue(value.GetValueOrDefault()); }
         public Vector4? Constant5Color { get => _constant5ColorParameter?.GetValueVector4(); set => _constant5ColorParameter?.SetValue(value.GetValueOrDefault()); }
+
+        public Color BlendColor { get; set; }
 
         public TextureSamplerSettings[] TextureSamplerSettings { get; set; }
 

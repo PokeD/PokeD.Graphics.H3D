@@ -63,7 +63,7 @@ namespace PokeD.Graphics.Content.ContentReaders
             effect.Constant3Color = reader.ReadColor().ToVector4();
             effect.Constant4Color = reader.ReadColor().ToVector4();
             effect.Constant5Color = reader.ReadColor().ToVector4();
-            var blendColor = reader.ReadColor().ToVector4();
+            effect.BlendColor = reader.ReadColor();
 
             effect.DepthBufferRead = reader.ReadBoolean();
             effect.DepthBufferWrite = reader.ReadBoolean();

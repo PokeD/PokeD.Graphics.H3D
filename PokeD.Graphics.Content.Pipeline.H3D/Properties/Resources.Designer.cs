@@ -61,6 +61,79 @@ namespace PokeD.Graphics.Content.Pipeline.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #ifndef SET_CPU_RENDER
+        ///	#define SET_CPU_RENDER 0
+        ///#endif
+        ///
+        ///#if (SET_CPU_RENDER == 1)
+        ///	#define MAX_BONES 0
+        ///	#define TEXTURE_MATRICES 0
+        ///#else
+        ///	#define TEXTURE_MATRICES 3
+        ///#endif
+        ///
+        ///DECLARE_TEXTURE(Texture0, 0);
+        ///DECLARE_TEXTURE(Texture1, 1);
+        ///DECLARE_TEXTURE(Texture2, 2);
+        ///
+        ///DECLARE_TEXTURE(LUT0, 3);
+        ///DECLARE_TEXTURE(LUT1, 4);
+        ///DECLARE_TEXTURE(LUT2, 5);
+        ///DECLARE_TEXTURE(LUT3, 6);
+        ///DECLARE_TEXTURE(LUT4, 7);
+        ///DECLARE_TEXTURE(LUT5, 8);
+        ///DECLARE_TEXTURE(LUT6, 9);
+        ///
+        ///DECLARE_TEXTURE(LightDistanceLUT0, 10);
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Declaration {
+            get {
+                return ResourceManager.GetString("Declaration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #version 150
+        ///
+        ///uniform sampler2D LUTs[6];
+        ///
+        ///uniform sampler2D Textures[3];
+        ///
+        ///uniform sampler2D LightDistanceLUT[3];
+        ///
+        ///uniform sampler2D LightAngleLUT[3];
+        ///
+        ///uniform samplerCube TextureCube;
+        ///
+        ///struct Light_t {
+        ///	vec3 Position;
+        ///	vec3 Direction;
+        ///	vec4 Ambient;
+        ///	vec4 Diffuse;
+        ///	vec4 Specular0;
+        ///	vec4 Specular1;
+        ///	float AttScale;
+        ///	float AttBias;
+        ///	float AngleLUTScale;
+        ///	int AngleLUTInput;
+        ///	int SpotAttEnb;
+        ///	int DistAttEnb;
+        ///	int TwoSidedDiff;
+        ///	int Directional;
+        ///};
+        ///
+        ///uniform int LightsCount;
+        ///
+        ///unifor [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FragmentShaderBase {
+            get {
+                return ResourceManager.GetString("FragmentShaderBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to //-----------------------------------------------------------------------------
         ///// Macros.fxh
         /////
@@ -96,9 +169,8 @@ namespace PokeD.Graphics.Content.Pipeline.Properties {
         ///	float3 color1	= tex1.rgb * Constant1Color.rgb;
         ///	float3 color2	= tex2.rgb * Constant2Color.rgb;
         ///	
-        ///	output			= float4( ((color0 + color1 + color2) * Constant5Color.rgb), tex0.a );
-        ///	AlphaTest(output);
-        ///	return ou [rest of string was truncated]&quot;;.
+        ///	output			= float4( ((color0 + color1 + color2) * Constant5Color.rgb), tex0.a * tex1.a * tex2.a );
+        ///	AlphaTest(ou [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PixelShader {
             get {
@@ -107,32 +179,29 @@ namespace PokeD.Graphics.Content.Pipeline.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to #ifndef SET_CPU_RENDER
-        ///	#define SET_CPU_RENDER 0
-        ///#endif
+        ///   Looks up a localized string similar to TECHNIQUE( H3DEffect_Basic,							VSBasic,				PSBasic	);
+        ///TECHNIQUE( H3DEffect_Custom,						VSBasic,				PSCustom );
         ///
-        ///DECLARE_TEXTURE(Texture0, 0);
-        ///DECLARE_TEXTURE(Texture1, 1);
-        ///DECLARE_TEXTURE(Texture2, 2);
+        ///#if (SET_CPU_RENDER == 0)
+        ///	TECHNIQUE( H3DEffect_Basic_SkinnedOneBone,		VSSkinnedOneBone,		PSBasic	);
+        ///	TECHNIQUE( H3DEffect_Basic_SkinnedTwoBones,		VSSkinnedTwoBones,		PSBasic	);
+        ///	TECHNIQUE( H3DEffect_Basic_SkinnedFourBones,	VSSkinnedFourBones,		PSBasic	);
         ///
-        ///DECLARE_TEXTURE(LUT0, 3);
-        ///DECLARE_TEXTURE(LUT1, 4);
-        ///DECLARE_TEXTURE(LUT2, 5);
-        ///DECLARE_TEXTURE(LUT3, 6);
-        ///DECLARE_TEXTURE(LUT4, 7);
-        ///DECLARE_TEXTURE(LUT5, 8);
-        ///DECLARE_TEXTURE(LUT6, 9);
-        ///
-        ///DECLARE_TEXTURE(LightDistanceLUT0, 10);
-        ///DECLARE_TEXTURE(LightDistanceLUT1, 11);
-        ///DECLARE_TEXTURE(LightDistanceLUT2, 12);
-        ///
-        ///DECLARE_TEXTURE(LightAngleLUT0, 13);
-        ///DE [rest of string was truncated]&quot;;.
+        ///	TECHNIQUE( H3DEffect_Custom_SkinnedOneBone,		VSSkinnedOneBone,		PSCustom );
+        ///	TECHNIQUE( H3DEffect_Custom_SkinnedTwoBones,	VSSkinn [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string VertexShaderBase {
+        internal static string Techniques {
             get {
-                return ResourceManager.GetString("VertexShaderBase", resourceCulture);
+                return ResourceManager.GetString("Techniques", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string VertexShader {
+            get {
+                return ResourceManager.GetString("VertexShader", resourceCulture);
             }
         }
     }

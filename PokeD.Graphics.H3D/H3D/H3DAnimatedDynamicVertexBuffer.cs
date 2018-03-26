@@ -15,8 +15,6 @@ namespace PokeD.Graphics.H3D
         public override void UpdateVertices(int startIndex, int elementCount, Matrix[] boneTransforms = null, Matrix[] materialTransform = null)
         {
             var transformSum = Matrix.Identity;
-
-            // skin all of the vertices
             for (var i = startIndex; i < startIndex + elementCount; i++)
             {
                 if (boneTransforms != null)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Microsoft.Xna.Framework;
@@ -49,6 +50,9 @@ namespace PokeD.Graphics.Content.Pipeline
             _rootNode = new NodeContent() { Identity = _identity, Name = "RootNode" };
 
             // Textures
+            if (!scene.Textures.Any())
+                scene.Merge(FormatIdentifier.IdentifyAndOpen(Path.Combine(Path.GetDirectoryName(filename), $"{Path.GetFileNameWithoutExtension(filename)}@Textures{Path.GetExtension(filename)}"), model.Skeleton));
+
             var textures = new Dictionary<string, Texture2DContent>();
             foreach (var texture in scene.Textures)
             {
@@ -72,6 +76,10 @@ namespace PokeD.Graphics.Content.Pipeline
             var materials = new Dictionary<string, H3DMaterialContent>();
             foreach (var material in model.Materials)
             {
+#if DEBUG
+                var hlslCode = new HLSLShaderGenerator(material.MaterialParams) { BoneCount = model.Skeleton.Count }.GetShader();
+                var glslCode = new GLSLFragmentShaderGenerator(material.MaterialParams).GetFragShader();
+#endif
                 var materialContent = new H3DMaterialContent()
                 {
                     Identity = _identity,
@@ -81,7 +89,7 @@ namespace PokeD.Graphics.Content.Pipeline
                     {
                         Identity = _identity,
                         Name = "H3DEffect",
-                        EffectCode = new ShaderGenerator(material.MaterialParams) { BoneCount = model.Skeleton.Count}.GetFragShader()
+                        EffectCode = new HLSLShaderGenerator(material.MaterialParams) { BoneCount = model.Skeleton.Count}.GetShader()
                     },
                     Material = material.Name,
 
@@ -131,6 +139,8 @@ namespace PokeD.Graphics.Content.Pipeline
                 materials.Add(material.Name, materialContent);
             }
 
+            var irScales = new Dictionary<string, Vector4[]>();
+
             // Geometry
             var meshes = new List<MeshContent>();
             for (var i = 0; i < model.Meshes.Count; i++)
@@ -165,9 +175,7 @@ namespace PokeD.Graphics.Content.Pipeline
 
                     switch (attribute.Name)
                     {
-                        case PICAAttributeName.Position:
-                            // Already added
-                            break;
+                        case PICAAttributeName.Position: break; // Already added
                         case PICAAttributeName.Normal:
                             geometry.Vertices.Channels.Add(VertexChannelNames.Normal(0), vertices.Select(vertex => vertex.Normal.ToVector3()));
                             break;
@@ -242,6 +250,9 @@ namespace PokeD.Graphics.Content.Pipeline
 
             var rootBone = ImportBones(model);
             _rootNode.Children.Add(rootBone);
+
+            if(!scene.SkeletalAnimations.Any())
+                scene.Merge(FormatIdentifier.IdentifyAndOpen(Path.Combine(Path.GetDirectoryName(filename), $"{Path.GetFileNameWithoutExtension(filename)}@Animations{Path.GetExtension(filename)}"), model.Skeleton));
 
             foreach (var animation in ImportSkeletalAnimations(scene))
                 rootBone.Animations.Add(animation.Name, animation);

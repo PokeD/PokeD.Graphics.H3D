@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 
-using SPICA.Formats.CtrH3D.Model.Material;
 using SPICA.PICA.Commands;
 using SPICA.PICA.Converters;
 
@@ -10,11 +9,6 @@ namespace PokeD.Graphics.Content.Pipeline.Extensions
 {
     internal static class NumericsExtension
     {
-        public static Matrix GetMatrix(this H3DTextureCoord coord)
-        {
-            return Matrix.CreateScale(new Vector3(coord.Scale.ToXNA(), 1)) * Matrix.CreateTranslation(new Vector3(coord.Translation.ToXNA(), 1));
-        }
-
         public static TextureAddressMode ToXNAWrap(this PICATextureWrap wrap)
         {
             switch (wrap)
@@ -27,14 +21,12 @@ namespace PokeD.Graphics.Content.Pipeline.Extensions
             }
         }
 
-        public static Matrix ToXNA(this SPICA.Math3D.Matrix3x4 m)
-        {
-            return new Matrix(
+        public static Matrix ToXNA(this SPICA.Math3D.Matrix3x4 m) =>
+            new Matrix(
                 m.M11, m.M12, m.M13, 0f,
                 m.M21, m.M22, m.M23, 0f,
                 m.M31, m.M32, m.M33, 0f,
                 m.M41, m.M42, m.M43, 1f);
-        }
 
         public static Matrix ToXNA(this System.Numerics.Matrix4x4 matrix) =>
             new Matrix(

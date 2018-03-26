@@ -1,0 +1,79 @@
+﻿void CalculateOutput(inout float4 position, inout float3 normal, inout float2 texCoord0, inout float2 texCoord1, inout float2 texCoord2)
+{
+	position				= mul(position, WorldViewProjection);
+	normal					= normalize(mul(normal, WorldInverseTranspose));
+#if HLSL && (SET_CPU_RENDER == 0)
+	texCoord0				= mul(float4(texCoord0, 1, 1), TextureTransforms[0]).xy;
+	texCoord1				= mul(float4(texCoord1, 1, 1), TextureTransforms[1]).xy;
+	texCoord2				= mul(float4(texCoord2, 1, 1), TextureTransforms[2]).xy;
+#else // texture matrix translation not working in Mojoshader(OpenGL)
+	texCoord0				= texCoord0;
+	texCoord1				= texCoord1;
+	texCoord2				= texCoord2;
+#endif
+}
+PSInput VSBasic(VSInput vin)
+{
+	CalculateOutput(vin.Position, vin.Normal, vin.TexCoord0, vin.TexCoord1, vin.TexCoord2);
+	PSInput vout;
+	vout.Position			= vin.Position;
+//	vout.Normal				= vin.Normal;
+	vout.Color				= vin.Color;
+	vout.TexCoord0			= vin.TexCoord0;
+	vout.TexCoord1			= vin.TexCoord1;
+	vout.TexCoord2			= vin.TexCoord2;
+	return vout;
+}
+
+#if (SET_CPU_RENDER == 0)
+	void Skin(inout VSInputSkinned vin, uniform int boneCount)
+	{
+		float4x3 skinning = 0;
+
+		[unroll]
+		for (int i = 0; i < boneCount; i++)
+				skinning += Bones[vin.Indices[i]] * vin.Weights[i];
+
+		vin.Position.xyz	= mul(vin.Position, skinning);
+		vin.Normal			= mul(vin.Normal, (float3x3) skinning);
+	}
+	PSInput VSSkinnedOneBone(VSInputSkinned vin)
+	{
+		Skin(vin, 1);
+		CalculateOutput(vin.Position, vin.Normal, vin.TexCoord0, vin.TexCoord1, vin.TexCoord2);
+		PSInput vout;
+		vout.Position		= vin.Position;
+//		vout.Normal			= vin.Normal;
+		vout.Color			= vin.Color;
+		vout.TexCoord0		= vin.TexCoord0;
+		vout.TexCoord1		= vin.TexCoord1;
+		vout.TexCoord2		= vin.TexCoord2;
+		return vout;
+	}
+	PSInput VSSkinnedTwoBones(VSInputSkinned vin)
+	{
+		Skin(vin, 2);
+		CalculateOutput(vin.Position, vin.Normal, vin.TexCoord0, vin.TexCoord1, vin.TexCoord2);
+		PSInput vout;
+		vout.Position		= vin.Position;
+//		vout.Normal			= vin.Normal;
+		vout.Color			= vin.Color;
+		vout.TexCoord0		= vin.TexCoord0;
+		vout.TexCoord1		= vin.TexCoord1;
+		vout.TexCoord2		= vin.TexCoord2;
+		return vout;
+	}
+	PSInput VSSkinnedFourBones(VSInputSkinned vin)
+	{
+		Skin(vin, 4);
+		CalculateOutput(vin.Position, vin.Normal, vin.TexCoord0, vin.TexCoord1, vin.TexCoord2);
+		PSInput vout;
+		vout.Position		= vin.Position;
+//		vout.Normal			= vin.Normal;
+		vout.Color			= vin.Color;
+		vout.TexCoord0		= vin.TexCoord0;
+		vout.TexCoord1		= vin.TexCoord1;
+		vout.TexCoord2		= vin.TexCoord2;
+		return vout;
+	}
+#endif

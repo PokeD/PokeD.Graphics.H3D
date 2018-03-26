@@ -1,0 +1,95 @@
+﻿#ifndef SET_CPU_RENDER
+	#define SET_CPU_RENDER 0
+#endif
+
+#if (SET_CPU_RENDER == 1)
+	#define MAX_BONES 0
+#endif
+
+#define TEXTURE_MATRICES 3
+
+DECLARE_TEXTURE(Texture0, 0);
+DECLARE_TEXTURE(Texture1, 1);
+DECLARE_TEXTURE(Texture2, 2);
+
+DECLARE_TEXTURE(LUT0, 3);
+DECLARE_TEXTURE(LUT1, 4);
+DECLARE_TEXTURE(LUT2, 5);
+DECLARE_TEXTURE(LUT3, 6);
+DECLARE_TEXTURE(LUT4, 7);
+DECLARE_TEXTURE(LUT5, 8);
+DECLARE_TEXTURE(LUT6, 9);
+
+DECLARE_TEXTURE(LightDistanceLUT0, 10);
+DECLARE_TEXTURE(LightDistanceLUT1, 11);
+DECLARE_TEXTURE(LightDistanceLUT2, 12);
+
+DECLARE_TEXTURE(LightAngleLUT0, 13);
+DECLARE_TEXTURE(LightAngleLUT1, 14);
+DECLARE_TEXTURE(LightAngleLUT2, 15);
+
+DECLARE_CUBEMAP(TextureCube0, 16);
+
+
+BEGIN_CONSTANTS
+
+	float4		EyePosition							_vs(c00)					_cb(c00);
+
+	float4		DiffuseColor										_ps(c00)	_cb(c01);
+
+	float4		Constant0Color										_ps(c01)	_cb(c02);
+	float4		Constant1Color										_ps(c02)	_cb(c03);
+	float4		Constant2Color										_ps(c03)	_cb(c04);
+	float4		Constant3Color										_ps(c04)	_cb(c05);
+	float4		Constant4Color										_ps(c05)	_cb(c06);
+	float4		Constant5Color										_ps(c06)	_cb(c07);
+	
+	float4		Specular0Color										_ps(c07)	_cb(c08);
+	float4		Specular1Color										_ps(c08)	_cb(c09);
+	
+	float4		EmissionColor										_ps(c09)	_cb(c10);
+	
+	float4		AmbientColor										_ps(c10)	_cb(c11);
+
+MATRIX_CONSTANTS
+
+	float4x4	World								_vs(c01)					_cb(c12);
+	float3x3	WorldInverseTranspose				_vs(c05)					_cb(c16);
+	float4x4	WorldViewProjection					_vs(c08)					_cb(c19);
+
+	float4x3	TextureTransforms[TEXTURE_MATRICES]	_vs(c12)					_cb(c23);
+	
+	float4x3	Bones[MAX_BONES]					_vs(c21)					_cb(c32); // Place it last, size is dynamic.
+
+END_CONSTANTS
+
+
+struct VSInput
+{
+	float4	Position	: POSITION;
+	float3	Normal		: NORMAL;
+	float4	Color		: COLOR;
+	float2	TexCoord0	: TEXCOORD0;
+	float2	TexCoord1	: TEXCOORD1;
+	float2	TexCoord2	: TEXCOORD2;
+};
+struct VSInputSkinned
+{
+	float4	Position	: POSITION;
+	float3	Normal		: NORMAL;
+	float4	Color		: COLOR;
+	float2	TexCoord0	: TEXCOORD0;
+	float2	TexCoord1	: TEXCOORD1;
+	float2	TexCoord2	: TEXCOORD2;
+	uint4	Indices		: BLENDINDICES;
+	float4	Weights		: BLENDWEIGHT;
+};
+struct PSInput
+{
+	float4	Position	: SV_Position;
+	float4	Color		: COLOR;
+	float2	TexCoord0	: TEXCOORD0;
+	float2	TexCoord1	: TEXCOORD1;
+	float2	TexCoord2	: TEXCOORD2;
+//	float3	Normal		: TEXCOORD3;
+};

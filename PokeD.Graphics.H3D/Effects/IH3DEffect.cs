@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using PokeD.Graphics.H3D;
 
@@ -13,6 +14,8 @@ namespace PokeD.Graphics.Effects
         Texture2D Texture2 { get; set; }
 
         TextureSamplerSettings[] TextureSamplerSettings { get; set; }
+
+        Color BlendColor { get; }
 
         CullMode CullMode { get; set; }
 

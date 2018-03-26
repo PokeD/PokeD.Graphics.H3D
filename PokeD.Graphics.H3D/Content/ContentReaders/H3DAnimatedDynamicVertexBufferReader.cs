@@ -51,6 +51,16 @@ namespace PokeD.Graphics.Content.ContentReaders
                             gpuVertices[i].Color = col;
                             break;
 
+                        case VertexElementUsage.Tangent:
+                            System.Diagnostics.Debug.Assert(channel.VertexElementFormat == VertexElementFormat.Vector3);
+                            var tan = input.ReadVector3();
+                            break;
+
+                        case VertexElementUsage.Binormal:
+                            System.Diagnostics.Debug.Assert(channel.VertexElementFormat == VertexElementFormat.Vector3);
+                            var bin = input.ReadVector3();
+                            break;
+
                         case VertexElementUsage.TextureCoordinate:
                             System.Diagnostics.Debug.Assert(channel.VertexElementFormat == VertexElementFormat.Vector2);
                             var tex = input.ReadVector2();
